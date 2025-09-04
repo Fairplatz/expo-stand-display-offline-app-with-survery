@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 
 export default function PremiumExpoSurvey() {
   const [currentScreen, setCurrentScreen] = useState<"start" | "video" | "survey" | "thankyou">("start");
@@ -91,37 +91,31 @@ export default function PremiumExpoSurvey() {
 
   if (currentScreen === "start") {
     return (
-      <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+      <div className="min-h-screen relative overflow-hidden bg-[#2b475c]">
         {/* Animated background */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-purple-500/20 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#3a5c78]/20 via-transparent to-transparent" />
         {showParticles && <Particles />}
         
         {/* Glass morphism overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 via-transparent to-purple-600/10 backdrop-blur-[2px]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#2b475c]/50 via-transparent to-[#2b475c]/30 backdrop-blur-[2px]" />
         
         <div className="relative z-10 min-h-screen flex items-center justify-center px-6">
-          <div className="text-center space-y-8 max-w-4xl">
+
+          <div className="text-center flex flex-col items-center justify-center space-y-8 max-w-4xl">
             {/* Logo/Icon */}
-            <div className="mx-auto w-24 h-24 bg-gradient-to-br from-blue-400 to-purple-600 rounded-3xl flex items-center justify-center mb-8 shadow-2xl">
-              <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-            </div>
+
+              <img src="/fast.png" alt="Altaaqa Logo" className="w-200 h-70" />
+           
             
-            <h1 className="text-7xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-100 to-purple-100 leading-tight">
-              Altaaqa 2025
-            </h1>
-            <p className="text-2xl md:text-3xl text-slate-300 font-light tracking-wide">
-              Innovation • Vision • Excellence
-            </p>
-            <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+  
+            <p className="text-lg text-white/70 max-w-2xl mx-auto">
               Experience the future of technology through our immersive journey
             </p>
             
             <div className="pt-8">
               <button
                 onClick={handleStartClick}
-                className="group relative px-12 py-6 bg-gradient-to-r from-blue-500 via-purple-600 to-pink-500 rounded-2xl text-2xl font-bold text-white shadow-2xl hover:shadow-purple-500/25 transform hover:scale-105 transition-all duration-500 overflow-hidden"
+                className="group relative px-12 py-6 bg-[#2b475c] rounded-2xl text-2xl font-bold text-white shadow-2xl border-2 border-white/30 hover:border-white/50 transform transition-all duration-500 overflow-hidden"
               >
                 <span className="relative z-10 flex items-center gap-3">
                   Begin Experience
@@ -129,7 +123,7 @@ export default function PremiumExpoSurvey() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
                 </span>
-                <div className="absolute inset-0 bg-gradient-to-r from-pink-500 via-purple-600 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </button>
             </div>
           </div>
@@ -140,16 +134,16 @@ export default function PremiumExpoSurvey() {
 
   if (currentScreen === "video") {
     return (
-      <div className="min-h-screen w-full bg-black relative overflow-hidden flex items-center justify-center">
+      <div className="min-h-screen w-full bg-[#2b475c] relative overflow-hidden flex items-center justify-center">
         {videoError ? (
           <div className="text-center text-white p-8">
             <div className="mb-6">
-              <svg className="w-16 h-16 mx-auto text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-16 h-16 mx-auto text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
             <h3 className="text-2xl font-bold mb-4">Video Unavailable</h3>
-            <p className="text-lg text-gray-300 mb-6">We're having trouble loading the video. Proceeding to survey...</p>
+            <p className="text-lg text-white/80 mb-6">We're having trouble loading the video. Proceeding to survey...</p>
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto"></div>
           </div>
         ) : (
@@ -164,14 +158,14 @@ export default function PremiumExpoSurvey() {
               controls={false}
             >
               {/* Replace with your actual video URL - this is a sample placeholder */}
-              <source src="https://customer-5a5y3y6v6vxw9y5z.cloudflarestream.com/5a5y3y6v6vxw9y5z/video.mp4" type="video/mp4" />
+              <source src="video.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
             
             {/* Elegant skip button */}
             <button
               onClick={handleVideoEnd}
-              className="absolute top-8 right-8 px-6 py-3 bg-black/30 backdrop-blur-md border border-white/20 text-white rounded-xl hover:bg-black/50 transition-all duration-300 flex items-center gap-2"
+              className="absolute top-8 right-8 px-6 py-3 bg-[#2b475c]/80 backdrop-blur-md border border-white/30 text-white rounded-xl hover:bg-[#2b475c] transition-all duration-300 flex items-center gap-2"
             >
               <span>Skip</span>
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -186,17 +180,17 @@ export default function PremiumExpoSurvey() {
 
   if (currentScreen === "survey") {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900 py-12 px-6">
+    <div className="min-h-screen bg-[#2b475c] py-12 px-6">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-200 mb-4">
+          <h2 className="text-5xl font-bold text-white mb-4">
             Presentation Feedback
           </h2>
-          <p className="text-xl text-slate-300">Your input helps us improve future sessions</p>
+          <p className="text-xl text-white/80">Your input helps us improve future sessions</p>
         </div>
 
-        <div className="bg-white/5 backdrop-blur-xl rounded-3xl p-8 md:p-12 border border-white/10 shadow-2xl space-y-8">
+        <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-8 md:p-12 border border-white/20 shadow-2xl space-y-8">
           
           {/* Overall Rating */}
           <div className="space-y-6">
@@ -208,8 +202,8 @@ export default function PremiumExpoSurvey() {
                   onClick={() => handleChange("rating", String(num))}
                   className={`w-16 h-16 rounded-2xl font-bold text-xl transition-all duration-300 ${
                     surveyData.rating === String(num)
-                      ? "bg-gradient-to-br from-yellow-400 to-orange-500 text-white shadow-xl shadow-yellow-500/30 scale-110"
-                      : "bg-white/10 backdrop-blur-sm text-slate-300 hover:bg-white/20 hover:scale-105 border border-white/20"
+                      ? "bg-white text-[#2b475c] shadow-xl shadow-white/30 scale-110"
+                      : "bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 hover:scale-105 border border-white/20"
                   }`}
                 >
                   {num}
@@ -220,11 +214,11 @@ export default function PremiumExpoSurvey() {
 
           {/* Clarity */}
           <div className="space-y-2">
-            <label className="text-sm font-medium text-slate-300">How clear and easy to understand was the content?</label>
+            <label className="text-sm font-medium text-white/80">How clear and easy to understand was the content?</label>
             <select
               value={surveyData.clarity || ""}
               onChange={(e) => handleChange("clarity", e.target.value)}
-              className="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white focus:ring-2 focus:ring-blue-400 outline-none"
+              className="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white focus:ring-2 focus:ring-white/50 outline-none"
             >
               <option value="">Select an option</option>
               <option value="Very unclear">Very unclear</option>
@@ -237,7 +231,7 @@ export default function PremiumExpoSurvey() {
 
           {/* Expectations */}
           <div className="space-y-2">
-            <label className="text-sm font-medium text-slate-300">Did the presentation meet your expectations?</label>
+            <label className="text-sm font-medium text-white/80">Did the presentation meet your expectations?</label>
             <div className="flex gap-4">
               {["Yes", "Somewhat", "No"].map((opt) => (
                 <button
@@ -245,8 +239,8 @@ export default function PremiumExpoSurvey() {
                   onClick={() => handleChange("expectations", opt)}
                   className={`px-6 py-3 rounded-xl transition-all ${
                     surveyData.expectations === opt
-                      ? "bg-gradient-to-r from-blue-500 to-purple-500 text-white"
-                      : "bg-white/10 border border-white/20 text-slate-300 hover:bg-white/20"
+                      ? "bg-white text-[#2b475c]"
+                      : "bg-white/10 border border-white/20 text-white hover:bg-white/20"
                   }`}
                 >
                   {opt}
@@ -257,11 +251,11 @@ export default function PremiumExpoSurvey() {
 
           {/* Engagement */}
           <div className="space-y-2">
-            <label className="text-sm font-medium text-slate-300">How engaging was the presenter?</label>
+            <label className="text-sm font-medium text-white/80">How engaging was the presenter?</label>
             <select
               value={surveyData.engagement || ""}
               onChange={(e) => handleChange("engagement", e.target.value)}
-              className="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white focus:ring-2 focus:ring-purple-400 outline-none"
+              className="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white focus:ring-2 focus:ring-white/50 outline-none"
             >
               <option value="">Select an option</option>
               <option value="Not engaging">Not engaging</option>
@@ -274,31 +268,31 @@ export default function PremiumExpoSurvey() {
 
           {/* Most Useful */}
           <div className="space-y-2">
-            <label className="text-sm font-medium text-slate-300">Which part of the presentation did you find most useful or interesting?</label>
+            <label className="text-sm font-medium text-white/80">Which part of the presentation did you find most useful or interesting?</label>
             <textarea
               value={surveyData.useful || ""}
               onChange={(e) => handleChange("useful", e.target.value)}
               placeholder="Your thoughts..."
-              className="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 focus:ring-2 focus:ring-blue-400 outline-none resize-none"
+              className="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/40 focus:ring-2 focus:ring-white/50 outline-none resize-none"
               rows={3}
             />
           </div>
 
           {/* Improvements */}
           <div className="space-y-2">
-            <label className="text-sm font-medium text-slate-300">What improvements would you suggest for future presentations?</label>
+            <label className="text-sm font-medium text-white/80">What improvements would you suggest for future presentations?</label>
             <textarea
               value={surveyData.improvements || ""}
               onChange={(e) => handleChange("improvements", e.target.value)}
               placeholder="Suggestions..."
-              className="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 focus:ring-2 focus:ring-purple-400 outline-none resize-none"
+              className="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/40 focus:ring-2 focus:ring-white/50 outline-none resize-none"
               rows={3}
             />
           </div>
 
           {/* Recommend */}
           <div className="space-y-2">
-            <label className="text-sm font-medium text-slate-300">Would you recommend this presentation to others?</label>
+            <label className="text-sm font-medium text-white/80">Would you recommend this presentation to others?</label>
             <div className="flex gap-4">
               {["Yes", "Maybe", "No"].map((opt) => (
                 <button
@@ -306,8 +300,8 @@ export default function PremiumExpoSurvey() {
                   onClick={() => handleChange("recommend", opt)}
                   className={`px-6 py-3 rounded-xl transition-all ${
                     surveyData.recommend === opt
-                      ? "bg-gradient-to-r from-pink-500 to-purple-600 text-white"
-                      : "bg-white/10 border border-white/20 text-slate-300 hover:bg-white/20"
+                      ? "bg-white text-[#2b475c]"
+                      : "bg-white/10 border border-white/20 text-white hover:bg-white/20"
                   }`}
                 >
                   {opt}
@@ -321,7 +315,7 @@ export default function PremiumExpoSurvey() {
             <button
               onClick={handleSubmit}
               disabled={isLoading}
-              className="w-full py-5 rounded-xl text-xl font-bold bg-gradient-to-r from-blue-500 via-purple-600 to-pink-500 text-white hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
+              className="w-full py-5 rounded-xl text-xl font-bold bg-white text-[#2b475c] hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 border-2 border-white"
             >
               {isLoading ? "Processing..." : "Submit Feedback"}
             </button>
@@ -335,11 +329,11 @@ export default function PremiumExpoSurvey() {
 
   if (currentScreen === "thankyou") {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-400 via-blue-500 to-purple-600 text-white relative overflow-hidden">
+      <div className="min-h-screen flex items-center justify-center bg-[#2b475c] text-white relative overflow-hidden">
         {/* Background animations */}
         <div className="absolute inset-0">
           <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-white/10 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-300/10 rounded-full blur-3xl animate-pulse delay-1000" />
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-pulse delay-1000" />
         </div>
         
         <div className="text-center space-y-8 z-10 relative max-w-2xl px-6">
@@ -357,19 +351,19 @@ export default function PremiumExpoSurvey() {
             </svg>
           </div>
           
-          <h1 className="text-6xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-100">
+          <h1 className="text-6xl md:text-7xl font-black text-white">
             Thank You!
           </h1>
-          <p className="text-2xl font-light text-blue-100">
+          <p className="text-2xl font-light text-white/80">
             Your presentation feedback has been successfully recorded
           </p>
           <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
-            <p className="text-lg text-blue-100">
+            <p className="text-lg text-white/80">
               Thank you for taking the time to evaluate our Altaaqa presentation.
               Your feedback helps us deliver better experiences and content.
             </p>
           </div>
-          <p className="text-slate-300 animate-pulse">
+          <p className="text-white/70 animate-pulse">
             Returning to welcome screen...
           </p>
         </div>
