@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 export default function PremiumExpoSurvey() {
   const [currentScreen, setCurrentScreen] = useState<"start" | "video" | "survey" | "thankyou">("start");
@@ -13,6 +13,7 @@ export default function PremiumExpoSurvey() {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [showParticles, setShowParticles] = useState(true);
+  const [videoError, setVideoError] = useState(false);
 
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -22,12 +23,17 @@ export default function PremiumExpoSurvey() {
   };
   
   const handleVideoEnd = () => setCurrentScreen("survey");
-  const handleVideoError = () => setCurrentScreen("survey");
+  
+  const handleVideoError = () => {
+    console.error("Video failed to load");
+    setVideoError(true);
+    // Automatically proceed to survey after a short delay
+    setTimeout(() => setCurrentScreen("survey"), 2000);
+  };
 
   const handleChange = (field: string, value: string) => {
     setSurveyData((prev:any) => ({ ...prev, [field]: value }));
   };
-
 
   const handleSubmit = async () => {
     if (!surveyData) {
@@ -54,6 +60,7 @@ export default function PremiumExpoSurvey() {
         });
         setShowParticles(true);
         setIsLoading(false);
+        setVideoError(false);
       }, 4000);
     } catch (err) {
       console.error("Save error:", err);
@@ -133,29 +140,46 @@ export default function PremiumExpoSurvey() {
 
   if (currentScreen === "video") {
     return (
-      <div className="min-h-screen w-full bg-black relative overflow-hidden">
-        <video
-          ref={videoRef}
-          className="w-full h-screen object-cover"
-          autoPlay
-          onEnded={handleVideoEnd}
-          onError={handleVideoError}
-          controls={false}
-        >
-          <source src="/video.mov" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-        
-        {/* Elegant skip button */}
-        <button
-          onClick={handleVideoEnd}
-          className="absolute top-8 right-8 px-6 py-3 bg-black/30 backdrop-blur-md border border-white/20 text-white rounded-xl hover:bg-black/50 transition-all duration-300 flex items-center gap-2"
-        >
-          <span>Skip</span>
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
-        </button>
+      <div className="min-h-screen w-full bg-black relative overflow-hidden flex items-center justify-center">
+        {videoError ? (
+          <div className="text-center text-white p-8">
+            <div className="mb-6">
+              <svg className="w-16 h-16 mx-auto text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h3 className="text-2xl font-bold mb-4">Video Unavailable</h3>
+            <p className="text-lg text-gray-300 mb-6">We're having trouble loading the video. Proceeding to survey...</p>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto"></div>
+          </div>
+        ) : (
+          <>
+            <video
+              ref={videoRef}
+              className="w-full h-screen object-cover"
+              autoPlay
+              muted
+              onEnded={handleVideoEnd}
+              onError={handleVideoError}
+              controls={false}
+            >
+              {/* Replace with your actual video URL - this is a sample placeholder */}
+              <source src="https://customer-5a5y3y6v6vxw9y5z.cloudflarestream.com/5a5y3y6v6vxw9y5z/video.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            
+            {/* Elegant skip button */}
+            <button
+              onClick={handleVideoEnd}
+              className="absolute top-8 right-8 px-6 py-3 bg-black/30 backdrop-blur-md border border-white/20 text-white rounded-xl hover:bg-black/50 transition-all duration-300 flex items-center gap-2"
+            >
+              <span>Skip</span>
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </>
+        )}
       </div>
     );
   }
