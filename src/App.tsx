@@ -484,7 +484,7 @@ if (currentScreen === "thankyou") {
 
         <div className="flex flex-col items-center space-y-4">
           
-<div className="flex flex-col md:flex-row items-center justify-center gap-6">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-6">
           <img src="/altaaqa.png" alt="Altaaqa Logo" className="w-48 h-auto" />
           <div className="w-full md:w-px h-px md:h-20 bg-white/40" />
           <img src="/fast.png" alt="Fast Logo" className="w-48 h-auto" />
