@@ -177,7 +177,7 @@ export default function PremiumExpoSurvey() {
               controls={false}
             >
               {/* Replace with your actual video URL - this is a sample placeholder */}
-              <source src="video.mp4" type="video/mp4" />
+              <source src="videoal.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
             
