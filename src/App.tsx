@@ -378,13 +378,13 @@ export default function PremiumExpoSurvey() {
   // START SCREEN
   if (currentScreen === "start") {
     return (
-      <div className="min-h-screen relative overflow-hidden bg-[#2b475c]">
+      <div className="min-h-screen relative overflow-hidden bg-[#d6d9dc]">
         {/* Animated background */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#3a5c78]/20 via-transparent to-transparent" />
         {showParticles && <Particles />}
         
         {/* Glass morphism overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#2b475c]/50 via-transparent to-[#2b475c]/30 backdrop-blur-[2px]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#d6d9dc]/50 via-transparent to-[#d6d9dc]/30 backdrop-blur-[2px]" />
         
         <div className="relative z-10 min-h-screen flex items-center justify-center px-6">
           <div className="text-center flex flex-col items-center justify-center space-y-8 max-w-4xl">
@@ -393,20 +393,22 @@ export default function PremiumExpoSurvey() {
               className="flex flex-col md:flex-row items-center justify-center gap-6 cursor-pointer"
               onClick={handleAdminClick}
             >
+          
+           
               <img src="/altaaqa.png" alt="Altaaqa Logo" className="w-48 h-auto" />
-              {/* Divider */}
-              <div className="w-full md:w-px h-px md:h-20 bg-white/40" />
-              <img src="/fast.png" alt="Fast Logo" className="w-48 h-auto" />
-            </div>
+              
             
-            <p className="text-lg text-white/70 max-w-2xl mx-auto">
+
+          </div>
+            
+            <p className="text-lg text-black max-w-2xl mx-auto">
               Experience the future of technology through our immersive journey
             </p>
             
             <div className="pt-8">
               <button
                 onClick={handleStartClick}
-                className="group relative px-12 py-6 bg-[#2b475c] rounded-2xl text-2xl font-bold text-white shadow-2xl border-2 border-white/30 hover:border-white/50 transform transition-all duration-500 overflow-hidden"
+                className="group relative px-12 py-6 bg-[#d6d9dc] rounded-2xl text-2xl font-bold text-[#0cf1cf]shadow-2xl border-2 border-white/30 hover:border-white/50 transform transition-all duration-500 overflow-hidden"
               >
                 <span className="relative z-10 flex items-center gap-3">
                   Begin Experience
@@ -421,23 +423,23 @@ export default function PremiumExpoSurvey() {
             {/* Admin Panel (if enabled) */}
             {isAdminMode && (
               <div className="mt-8 p-6 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20">
-                <h3 className="text-xl font-bold text-white mb-4">Admin Export</h3>
+                <h3 className="text-xl font-bold text-[#0cf1cf]mb-4">Admin Export</h3>
                 <div className="space-y-4">
                   <input
                     type="password"
                     placeholder="Enter admin key"
                     value={adminKey}
                     onChange={(e) => setAdminKey(e.target.value)}
-                    className="w-full p-3 rounded-lg bg-white/20 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    className="w-full p-3 rounded-lg bg-white/20 text-[#0cf1cf]placeholder-black focus:outline-none focus:ring-2 focus:ring-blue-400"
                   />
                   <button
                     onClick={exportToSQLite}
-                    className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
+                    className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-[#0cf1cf]rounded-lg transition-colors"
                   >
                     Export to SQLite
                   </button>
                   {exportStatus && (
-                    <p className="text-white/80 text-sm">{exportStatus}</p>
+                    <p className="text-[#0cf1cf]  text-sm">{exportStatus}</p>
                   )}
                 </div>
               </div>
@@ -451,16 +453,16 @@ export default function PremiumExpoSurvey() {
   // VIDEO SCREEN
   if (currentScreen === "video") {
     return (
-      <div className="min-h-screen w-full bg-[#2b475c] relative overflow-hidden flex items-center justify-center">
+      <div className="min-h-screen w-full bg-[#ffffff] relative overflow-hidden flex items-center justify-center">
         {videoError ? (
-          <div className="text-center text-white p-8">
+          <div className="text-center text-[#0cf1cf]p-8">
             <div className="mb-6">
               <svg className="w-16 h-16 mx-auto text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
             <h3 className="text-2xl font-bold mb-4">Video Unavailable</h3>
-            <p className="text-lg text-white/80 mb-6">We're having trouble loading the video. Proceeding to survey...</p>
+            <p className="text-lg text-[#0cf1cf]  mb-6">We're having trouble loading the video. Proceeding to survey...</p>
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto"></div>
           </div>
         ) : (
@@ -481,7 +483,7 @@ export default function PremiumExpoSurvey() {
             {/* Elegant skip button */}
             <button
               onClick={handleVideoEnd}
-              className="absolute top-8 right-8 px-6 py-3 bg-[#2b475c]/80 backdrop-blur-md border border-white/30 text-white rounded-xl hover:bg-[#2b475c] transition-all duration-300 flex items-center gap-2"
+              className="absolute top-8 right-8 px-6 py-3 bg-[#d6d9dc]/80 backdrop-blur-md border border-white/30 text-[#0cf1cf]rounded-xl hover:bg-[#d6d9dc] transition-all duration-300 flex items-center gap-2"
             >
               <span>Skip</span>
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -497,17 +499,19 @@ export default function PremiumExpoSurvey() {
   // SURVEY SCREEN
   if (currentScreen === "survey") {
     return (
-      <div className="min-h-screen bg-[#2b475c] py-12 px-6">
+      <div className="min-h-screen bg-[#ffffff] text-[#00b398]  py-12 px-6">
         <div className="max-w-4xl mx-auto relative z-10 flex flex-col items-center justify-center space-y-8">
           {/* Logos with divider */}
-          <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-            <img src="/altaaqa.png" alt="Altaaqa Logo" className="w-48 h-auto" />
-            <div className="w-full md:w-px h-px md:h-20 bg-white/40" />
-            <img src="/fast.png" alt="Fast Logo" className="w-48 h-auto" />
+         <div className="flex flex-col items-center space-y-4">
+           
+              <img src="/altaaqa.png" alt="Altaaqa Logo" className="w-48 h-auto" />
+              
+            
+
           </div>
 
           {/* Survey Card */}
-          <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-8 md:p-12 border border-white/20 shadow-2xl space-y-8 text-white w-full">
+          <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-8 md:p-12 border border-white/20 shadow-2xl space-y-8  w-full">
 
             {/* 1. Sector - Now Multiple Choice */}
             <div>
@@ -525,7 +529,7 @@ export default function PremiumExpoSurvey() {
                 "Healthcare",
                 "Other",
               ].map((opt) => (
-                <label key={opt} className="block mb-2 cursor-pointer hover:text-white/80">
+                <label key={opt} className="block mb-2 cursor-pointer hover:text-[#0cf1cf] ">
                   <input
                     type="checkbox"
                     value={opt}
@@ -550,7 +554,7 @@ export default function PremiumExpoSurvey() {
                 "Emergency Backup Power",
                 "Other",
               ].map((opt) => (
-                <label key={opt} className="block mb-2 cursor-pointer hover:text-white/80">
+                <label key={opt} className="block mb-2 cursor-pointer hover:text-[#0cf1cf] ">
                   <input
                     type="checkbox"
                     value={opt}
@@ -570,7 +574,7 @@ export default function PremiumExpoSurvey() {
               </h3>
               {["Below 1 MW", "1 – 10 MW", "10 – 50 MW", "Above 50 MW","Other"].map(
                 (opt) => (
-                  <label key={opt} className="block mb-2 cursor-pointer hover:text-white/80">
+                  <label key={opt} className="block mb-2 cursor-pointer hover:text-[#0cf1cf] ">
                     <input
                       type="radio"
                       name="capacity"
@@ -599,7 +603,7 @@ export default function PremiumExpoSurvey() {
                 "Service & Maintenance Quality",
                 "Other",
               ].map((opt) => (
-                <label key={opt} className="block mb-2 cursor-pointer hover:text-white/80">
+                <label key={opt} className="block mb-2 cursor-pointer hover:text-[#0cf1cf] ">
                   <input
                     type="checkbox"
                     value={opt}
@@ -664,7 +668,7 @@ export default function PremiumExpoSurvey() {
     "Exploring options for the future",
     "Not at the moment",
   ].map((opt) => (
-    <label key={opt} className="block mb-2 cursor-pointer hover:text-white/80">
+    <label key={opt} className="block mb-2 cursor-pointer hover:text-[#0cf1cf] ">
       <input
         type="radio"
         name="seeking"
@@ -683,7 +687,7 @@ export default function PremiumExpoSurvey() {
               <h3 className="text-xl font-semibold mb-3">
                 7. Would you like Altaaqa to follow up with a tailored solution? <span className="text-red-400">*</span>
               </h3>
-              <label className="block mb-3 cursor-pointer hover:text-white/80">
+              <label className="block mb-3 cursor-pointer hover:text-[#0cf1cf] ">
                 <input
                   type="radio"
                   name="followup"
@@ -722,7 +726,7 @@ export default function PremiumExpoSurvey() {
                   />
                 </div>
               )}
-              <label className="block cursor-pointer hover:text-white/80">
+              <label className="block cursor-pointer hover:text-green-500 ">
                 <input
                   type="radio"
                   name="followup"
@@ -740,11 +744,11 @@ export default function PremiumExpoSurvey() {
               <button
                 onClick={handleSubmit}
                 disabled={isLoading}
-                className="w-full py-5 rounded-xl text-xl font-bold bg-white text-[#2b475c] hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 border-2 border-white"
+                className="w-full py-5 rounded-xl text-xl font-bold bg-white text-[#0cf1cf]  hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 border-2 border-white"
               >
                 {isLoading ? (
                   <>
-                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-[#2b475c]"></div>
+                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-[#d6d9dc]"></div>
                     Processing...
                   </>
                 ) : (
@@ -762,7 +766,7 @@ export default function PremiumExpoSurvey() {
   // THANK YOU SCREEN
   if (currentScreen === "thankyou") {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#2b475c] text-white relative overflow-hidden">
+      <div className="min-h-screen flex items-center justify-center bg-[#ffffff] text-[#0cf1cf] relative overflow-hidden">
         {/* Floating background orbs */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-white/10 rounded-full blur-3xl animate-ping" />
@@ -772,17 +776,16 @@ export default function PremiumExpoSurvey() {
         <div className="relative z-10 text-center space-y-10 max-w-3xl px-6 animate-fadeIn">
           {/* Altaaqa Logo + Header */}
           <div className="flex flex-col items-center space-y-4">
-            <div className="flex flex-col md:flex-row items-center justify-center gap-6">
+           
               <img src="/altaaqa.png" alt="Altaaqa Logo" className="w-48 h-auto" />
-              <div className="w-full md:w-px h-px md:h-20 bg-white/40" />
-              <img src="/fast.png" alt="Fast Logo" className="w-48 h-auto" />
-            </div>
+              
+            
 
           </div>
 
           {/* Success icon */}
-          <div className="mx-auto w-32 h-32 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center animate-bounceSlow">
-            <svg className="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 20 20">
+          <div className="mx-auto w-32 h-32 bg-white backdrop-blur-md rounded-full flex items-center justify-center animate-bounceSlow">
+            <svg className="w-16 h-16 text-[#0cf1cf] " fill="currentColor" viewBox="0 0 20 20">
               <path
                 fillRule="evenodd"
                 d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 
@@ -798,7 +801,7 @@ export default function PremiumExpoSurvey() {
           <h1 className="text-5xl md:text-6xl font-extrabold animate-fadeUp">
             Thank You!
           </h1>
-          <p className="text-xl font-light text-white/80 animate-fadeUp delay-150">
+          <p className="text-xl font-light text-[#0cf1cf]  animate-fadeUp delay-150">
             Your feedback has been successfully recorded in our database.  
             We truly appreciate your time and support.
           </p>
