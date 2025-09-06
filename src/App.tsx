@@ -12,6 +12,7 @@ export default function PremiumExpoSurvey() {
     interests: [] as string[],
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [countdown, setCountdown] = useState(7); 
   const [showParticles, setShowParticles] = useState(true);
   const [videoError, setVideoError] = useState(false);
 
@@ -48,20 +49,29 @@ export default function PremiumExpoSurvey() {
       
       setCurrentScreen("thankyou");
 
-      setTimeout(() => {
-        setCurrentScreen("start");
-        setSurveyData({
-          name: "",
-          email: "",
-          company: "",
-          rating: "",
-          feedback: "",
-          interests: [],
+      setCountdown(7);
+      const interval = setInterval(() => {
+        setCountdown((prev) => {
+          if (prev <= 1) {
+            clearInterval(interval);
+            // After countdown, go to start
+            setCurrentScreen("start");
+            setSurveyData({
+              name: "",
+              email: "",
+              company: "",
+              rating: "",
+              feedback: "",
+              interests: [],
+            });
+            setShowParticles(true);
+            setIsLoading(false);
+            setVideoError(false);
+            return 0;
+          }
+          return prev - 1;
         });
-        setShowParticles(true);
-        setIsLoading(false);
-        setVideoError(false);
-      }, 4000);
+      }, 1000);
     } catch (err) {
       console.error("Save error:", err);
       alert("Unable to save your response. Please try again.");
@@ -104,7 +114,16 @@ export default function PremiumExpoSurvey() {
           <div className="text-center flex flex-col items-center justify-center space-y-8 max-w-4xl">
             {/* Logo/Icon */}
 
-              <img src="/fast.png" alt="Altaaqa Logo" className="w-200 h-70" />
+             <div className="flex flex-col md:flex-row items-center justify-center gap-6">
+            <img src="/altaaqa.png" alt="Altaaqa Logo" className="w-48 h-auto" />
+
+             {/* Divider */}
+            <div className="w-full md:w-px h-px md:h-20 bg-white/40" />
+
+            <img src="/fast.png" alt="Fast Logo" className="w-48 h-auto" />
+        </div>
+
+            
            
             
   
@@ -178,146 +197,266 @@ export default function PremiumExpoSurvey() {
     );
   }
 
-  if (currentScreen === "survey") {
+ if (currentScreen === "survey") {
   return (
     <div className="min-h-screen bg-[#2b475c] py-12 px-6">
-      <div className="max-w-4xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-5xl font-bold text-white mb-4">
-            Presentation Feedback
-          </h2>
-          <p className="text-xl text-white/80">Your input helps us improve future sessions</p>
+      <div className="max-w-4xl mx-auto relative z-10 flex flex-col items-center justify-center space-y-8">
+
+        {/* Logos with divider */}
+        <div className="flex flex-col md:flex-row items-center justify-center gap-6">
+          <img src="/altaaqa.png" alt="Altaaqa Logo" className="w-48 h-auto" />
+          <div className="w-full md:w-px h-px md:h-20 bg-white/40" />
+          <img src="/fast.png" alt="Fast Logo" className="w-48 h-auto" />
         </div>
 
-        <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-8 md:p-12 border border-white/20 shadow-2xl space-y-8">
-          
-          {/* Overall Rating */}
-          <div className="space-y-6">
-            <h3 className="text-2xl font-bold text-white mb-2">Overall, how would you rate the presentation?</h3>
-            <div className="flex justify-center gap-4">
-              {[1, 2, 3, 4, 5].map((num) => (
-                <button
-                  key={num}
-                  onClick={() => handleChange("rating", String(num))}
-                  className={`w-16 h-16 rounded-2xl font-bold text-xl transition-all duration-300 ${
-                    surveyData.rating === String(num)
-                      ? "bg-white text-[#2b475c] shadow-xl shadow-white/30 scale-110"
-                      : "bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 hover:scale-105 border border-white/20"
-                  }`}
-                >
-                  {num}
-                </button>
-              ))}
-            </div>
+        {/* Header */}
+        <div className="text-center mb-6">
+          <h2 className="text-5xl font-bold text-white mb-4">
+            Altaaqa Exhibition Survey
+          </h2>
+          <p className="text-xl text-white/80">
+            Thank you for visiting Altaaqa! Your feedback helps us provide
+            solutions that save costs, improve reliability, and support your
+            growth.
+          </p>
+        </div>
+
+        {/* Survey Card */}
+        <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-8 md:p-12 border border-white/20 shadow-2xl space-y-8 text-white w-full">
+
+          {/* 1. Sector */}
+          <div>
+            <h3 className="text-xl font-semibold mb-3">
+              1. Which sector best describes your business?
+            </h3>
+            {[
+              "Mining",
+              "Construction",
+              "Oil & Gas",
+              "Manufacturing / Cement",
+              "Data Centers / IT",
+              "Events & Entertainment",
+              "Utilities / Government",
+              "Healthcare",
+              "Other",
+            ].map((opt) => (
+              <label key={opt} className="block">
+                <input
+                  type="radio"
+                  name="sector"
+                  value={opt}
+                  checked={surveyData.sector === opt}
+                  onChange={(e) => handleChange("sector", e.target.value)}
+                  className="mr-2"
+                />
+                {opt}
+              </label>
+            ))}
           </div>
 
-          {/* Clarity */}
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-white/80">How clear and easy to understand was the content?</label>
-            <select
-              value={surveyData.clarity || ""}
-              onChange={(e) => handleChange("clarity", e.target.value)}
-              className="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white focus:ring-2 focus:ring-white/50 outline-none"
-            >
-              <option value="">Select an option</option>
-              <option value="Very unclear">Very unclear</option>
-              <option value="Unclear">Unclear</option>
-              <option value="Neutral">Neutral</option>
-              <option value="Clear">Clear</option>
-              <option value="Very clear">Very clear</option>
-            </select>
+          {/* 2. Power Solution */}
+          <div>
+            <h3 className="text-xl font-semibold mb-3">
+              2. What type of power solution do you usually require?
+            </h3>
+            {[
+              "Temporary / Rental Power",
+              "Long-term Power Projects",
+              "Renewable / Hybrid Energy",
+              "Emergency Backup Power",
+              "Other",
+            ].map((opt) => (
+              <label key={opt} className="block">
+                <input
+                  type="radio"
+                  name="solution"
+                  value={opt}
+                  checked={surveyData.solution === opt}
+                  onChange={(e) => handleChange("solution", e.target.value)}
+                  className="mr-2"
+                />
+                {opt}
+              </label>
+            ))}
           </div>
 
-          {/* Expectations */}
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-white/80">Did the presentation meet your expectations?</label>
-            <div className="flex gap-4">
-              {["Yes", "Somewhat", "No"].map((opt) => (
-                <button
-                  key={opt}
-                  onClick={() => handleChange("expectations", opt)}
-                  className={`px-6 py-3 rounded-xl transition-all ${
-                    surveyData.expectations === opt
-                      ? "bg-white text-[#2b475c]"
-                      : "bg-white/10 border border-white/20 text-white hover:bg-white/20"
-                  }`}
-                >
+          {/* 3. Capacity */}
+          <div>
+            <h3 className="text-xl font-semibold mb-3">
+              3. What capacity range do you typically need?
+            </h3>
+            {["Below 1 MW", "1 – 10 MW", "10 – 50 MW", "Above 50 MW"].map(
+              (opt) => (
+                <label key={opt} className="block">
+                  <input
+                    type="radio"
+                    name="capacity"
+                    value={opt}
+                    checked={surveyData.capacity === opt}
+                    onChange={(e) => handleChange("capacity", e.target.value)}
+                    className="mr-2"
+                  />
                   {opt}
-                </button>
-              ))}
-            </div>
+                </label>
+              )
+            )}
           </div>
 
-          {/* Engagement */}
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-white/80">How engaging was the presenter?</label>
-            <select
-              value={surveyData.engagement || ""}
-              onChange={(e) => handleChange("engagement", e.target.value)}
-              className="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white focus:ring-2 focus:ring-white/50 outline-none"
-            >
-              <option value="">Select an option</option>
-              <option value="Not engaging">Not engaging</option>
-              <option value="Slightly engaging">Slightly engaging</option>
-              <option value="Neutral">Neutral</option>
-              <option value="Engaging">Engaging</option>
-              <option value="Very engaging">Very engaging</option>
-            </select>
+          {/* 4. Challenges */}
+          <div>
+            <h3 className="text-xl font-semibold mb-3">
+              4. What challenges matter most to you today?
+            </h3>
+            {[
+              "Reliability / Frequent Outages",
+              "High Power Costs",
+              "Sustainability & ESG Goals",
+              "Scalability / Meeting Demand",
+              "Speed of Deployment",
+              "Service & Maintenance Quality",
+              "Other",
+            ].map((opt) => (
+              <label key={opt} className="block">
+                <input
+                  type="checkbox"
+                  value={opt}
+                  checked={surveyData.challenges?.includes(opt)}
+                  onChange={(e) => {
+                    const checked = e.target.checked;
+                    setSurveyData((prev: any) => ({
+                      ...prev,
+                      challenges: checked
+                        ? [...(prev.challenges || []), opt]
+                        : (prev.challenges || []).filter(
+                            (c: string) => c !== opt
+                          ),
+                    }));
+                  }}
+                  className="mr-2"
+                />
+                {opt}
+              </label>
+            ))}
           </div>
 
-          {/* Most Useful */}
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-white/80">Which part of the presentation did you find most useful or interesting?</label>
-            <textarea
-              value={surveyData.useful || ""}
-              onChange={(e) => handleChange("useful", e.target.value)}
-              placeholder="Your thoughts..."
-              className="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/40 focus:ring-2 focus:ring-white/50 outline-none resize-none"
-              rows={3}
-            />
-          </div>
-
-          {/* Improvements */}
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-white/80">What improvements would you suggest for future presentations?</label>
-            <textarea
-              value={surveyData.improvements || ""}
-              onChange={(e) => handleChange("improvements", e.target.value)}
-              placeholder="Suggestions..."
-              className="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/40 focus:ring-2 focus:ring-white/50 outline-none resize-none"
-              rows={3}
-            />
-          </div>
-
-          {/* Recommend */}
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-white/80">Would you recommend this presentation to others?</label>
-            <div className="flex gap-4">
-              {["Yes", "Maybe", "No"].map((opt) => (
-                <button
-                  key={opt}
-                  onClick={() => handleChange("recommend", opt)}
-                  className={`px-6 py-3 rounded-xl transition-all ${
-                    surveyData.recommend === opt
-                      ? "bg-white text-[#2b475c]"
-                      : "bg-white/10 border border-white/20 text-white hover:bg-white/20"
-                  }`}
+          {/* 5. Partner importance */}
+          <div>
+            <h3 className="text-xl font-semibold mb-3">
+              5. When choosing a power partner, how important are the following?
+              (1 = Not Important, 5 = Very Important)
+            </h3>
+            {[
+              "Fast deployment & availability",
+              "Cost efficiency",
+              "Environmental sustainability",
+              "Technical support & reliability",
+              "Long-term partnership",
+            ].map((q) => (
+              <div key={q} className="mb-3">
+                <label className="block mb-1">{q}:</label>
+                <select
+                  value={surveyData[q] || ""}
+                  onChange={(e) => handleChange(q, e.target.value)}
+                  className="w-full p-2 rounded-lg bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400"
                 >
-                  {opt}
-                </button>
-              ))}
-            </div>
+                  <option value="">Select</option>
+                  {[1, 2, 3, 4, 5].map((n) => (
+                    <option key={n} value={n}>
+                      {n}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            ))}
+          </div>
+
+          {/* 6. Currently seeking */}
+          <div>
+            <h3 className="text-xl font-semibold mb-3">
+              6. Are you currently seeking a power solution provider?
+            </h3>
+            {[
+              "Yes, urgently",
+              "Yes, within the next 6 months",
+              "Exploring options for the future",
+              "Not at the moment",
+            ].map((opt) => (
+              <label key={opt} className="block">
+                <input
+                  type="radio"
+                  name="seeking"
+                  value={opt}
+                  checked={surveyData.seeking === opt}
+                  onChange={(e) => handleChange("seeking", e.target.value)}
+                  className="mr-2"
+                />
+                {opt}
+              </label>
+            ))}
+          </div>
+
+          {/* 7. Follow-up */}
+          <div>
+            <h3 className="text-xl font-semibold mb-3">
+              7. Would you like Altaaqa to follow up with a tailored solution?
+            </h3>
+            <label className="block mb-2">
+              <input
+                type="radio"
+                name="followup"
+                value="Yes"
+                checked={surveyData.followup === "Yes"}
+                onChange={(e) => handleChange("followup", e.target.value)}
+                className="mr-2"
+              />
+              Yes (please share your details)
+            </label>
+            {surveyData.followup === "Yes" && (
+              <div className="space-y-3 pl-6">
+                <input
+                  type="text"
+                  placeholder="Name"
+                  value={surveyData.name}
+                  onChange={(e) => handleChange("name", e.target.value)}
+                  className="w-full p-3 rounded-lg bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                />
+                <input
+                  type="text"
+                  placeholder="Company"
+                  value={surveyData.company}
+                  onChange={(e) => handleChange("company", e.target.value)}
+                  className="w-full p-3 rounded-lg bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                />
+                <input
+                  type="text"
+                  placeholder="Email / Phone / WhatsApp"
+                  value={surveyData.contact}
+                  onChange={(e) => handleChange("contact", e.target.value)}
+                  className="w-full p-3 rounded-lg bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                />
+              </div>
+            )}
+            <label className="block mt-2">
+              <input
+                type="radio"
+                name="followup"
+                value="No"
+                checked={surveyData.followup === "No"}
+                onChange={(e) => handleChange("followup", e.target.value)}
+                className="mr-2"
+              />
+              No, just exploring
+            </label>
           </div>
 
           {/* Submit */}
-          <div className="pt-4">
+          <div className="pt-6">
             <button
               onClick={handleSubmit}
               disabled={isLoading}
               className="w-full py-5 rounded-xl text-xl font-bold bg-white text-[#2b475c] hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 border-2 border-white"
             >
-              {isLoading ? "Processing..." : "Submit Feedback"}
+              {isLoading ? "Processing..." : "Submit Survey"}
             </button>
           </div>
         </div>
@@ -327,49 +466,97 @@ export default function PremiumExpoSurvey() {
 }
 
 
-  if (currentScreen === "thankyou") {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-[#2b475c] text-white relative overflow-hidden">
-        {/* Background animations */}
-        <div className="absolute inset-0">
-          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-white/10 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-pulse delay-1000" />
-        </div>
-        
-        <div className="text-center space-y-8 z-10 relative max-w-2xl px-6">
-          {/* Success Icon */}
-          <div className="mx-auto w-32 h-32 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center mb-8 animate-bounce">
-            <svg className="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 20 20">
-              <path
-                fillRule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 
-                  00-1.414-1.414L9 10.586 7.707 9.293a1 1 
-                  0 00-1.414 1.414l2 2a1 1 
-                  0 001.414 0l4-4z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </div>
-          
-          <h1 className="text-6xl md:text-7xl font-black text-white">
-            Thank You!
-          </h1>
-          <p className="text-2xl font-light text-white/80">
-            Your presentation feedback has been successfully recorded
-          </p>
-          <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
-            <p className="text-lg text-white/80">
-              Thank you for taking the time to evaluate our Altaaqa presentation.
-              Your feedback helps us deliver better experiences and content.
-            </p>
-          </div>
-          <p className="text-white/70 animate-pulse">
-            Returning to welcome screen...
-          </p>
-        </div>
+
+
+if (currentScreen === "thankyou") {
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-[#2b475c] text-white relative overflow-hidden">
+      {/* Floating background orbs */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-white/10 rounded-full blur-3xl animate-ping" />
+        <div className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-pulse delay-1000" />
       </div>
-    );
-  }
+
+      <div className="relative z-10 text-center space-y-10 max-w-3xl px-6 animate-fadeIn">
+        {/* Altaaqa Logo + Header */}
+
+
+
+        <div className="flex flex-col items-center space-y-4">
+          
+<div className="flex flex-col md:flex-row items-center justify-center gap-6">
+          <img src="/altaaqa.png" alt="Altaaqa Logo" className="w-48 h-auto" />
+          <div className="w-full md:w-px h-px md:h-20 bg-white/40" />
+          <img src="/fast.png" alt="Fast Logo" className="w-48 h-auto" />
+        </div>
+
+          <h2 className="text-4xl font-bold animate-fadeUp">
+            Altaaqa Exhibition Survey
+          </h2>
+          <p className="text-lg text-white/70 max-w-2xl animate-fadeUp delay-200">
+            Thank you for visiting Altaaqa! Your feedback helps us provide solutions that save costs, 
+            improve reliability, and support your growth.
+          </p>
+        </div>
+
+        {/* Success icon */}
+        <div className="mx-auto w-32 h-32 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center animate-bounceSlow">
+          <svg className="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              fillRule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 
+                00-1.414-1.414L9 10.586 7.707 9.293a1 1 
+                0 00-1.414 1.414l2 2a1 1 
+                0 001.414 0l4-4z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </div>
+
+        {/* Thank you message */}
+        <h1 className="text-5xl md:text-6xl font-extrabold animate-fadeUp">
+          Thank You!
+        </h1>
+        <p className="text-xl font-light text-white/80 animate-fadeUp delay-150">
+          Your feedback has been successfully recorded.  
+          We truly appreciate your time and support.
+        </p>
+
+        <p className="text-white/60 animate-pulse">
+          Returning to welcome screen in <span className="font-bold">{countdown}</span>...
+        </p>
+      </div>
+
+      {/* Animations */}
+      <style>{`
+        .animate-fadeIn {
+          animation: fadeIn 1s ease-in-out;
+        }
+        .animate-fadeUp {
+          animation: fadeUp 1s ease-in-out;
+        }
+        .animate-fadeDown {
+          animation: fadeDown 1s ease-in-out;
+        }
+        .animate-bounceSlow {
+          animation: bounce 3s infinite;
+        }
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        @keyframes fadeUp {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeDown {
+          from { opacity: 0; transform: translateY(-20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
+    </div>
+  );
+}
 
   return null;
 }
