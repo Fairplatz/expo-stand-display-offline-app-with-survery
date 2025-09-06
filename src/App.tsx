@@ -1,3 +1,4 @@
+
 import { useState, useRef, useEffect } from "react";
 import initSqlJs from "sql.js";
 
@@ -13,8 +14,8 @@ export default function PremiumExpoSurvey() {
     rating: "",
     feedback: "",
     interests: [] as string[],
-    sector: "",
-    solution: "",
+    sector: [] as string[], // Changed to array for multiple choice
+    solution: [] as string[], // Changed to array for multiple choice
     capacity: "",
     challenges: [] as string[],
     seeking: "",
@@ -167,8 +168,8 @@ export default function PremiumExpoSurvey() {
           ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
           [
             response.timestamp,
-            response.sector || '',
-            response.solution || '',
+            Array.isArray(response.sector) ? response.sector.join('; ') : (response.sector || ''),
+            Array.isArray(response.solution) ? response.solution.join('; ') : (response.solution || ''),
             response.capacity || '',
             (response.challenges || []).join('; '),
             response['Fast deployment & availability'] || null,
@@ -254,10 +255,25 @@ export default function PremiumExpoSurvey() {
     setSurveyData((prev: any) => ({ ...prev, [field]: value }));
   };
 
+  // New handler for multiple choice questions
+  const handleMultipleChoice = (field: string, value: string, checked: boolean) => {
+    setSurveyData((prev: any) => ({
+      ...prev,
+      [field]: checked
+        ? [...(prev[field] || []), value]
+        : (prev[field] || []).filter((item: string) => item !== value),
+    }));
+  };
+
   const handleSubmit = async () => {
-    // Validation
+    // Validation - updated for array fields
     const requiredFields = ['sector', 'solution', 'capacity', 'seeking', 'followup'];
-    const missingFields = requiredFields.filter(field => !surveyData[field]);
+    const missingFields = requiredFields.filter(field => {
+      if (field === 'sector' || field === 'solution') {
+        return !surveyData[field] || surveyData[field].length === 0;
+      }
+      return !surveyData[field];
+    });
     
     if (missingFields.length > 0) {
       alert("Please complete all required fields to continue.");
@@ -301,8 +317,8 @@ export default function PremiumExpoSurvey() {
               rating: "",
               feedback: "",
               interests: [],
-              sector: "",
-              solution: "",
+              sector: [], // Reset as array
+              solution: [], // Reset as array
               capacity: "",
               challenges: [],
               seeking: "",
@@ -342,7 +358,6 @@ export default function PremiumExpoSurvey() {
     window.lastClick = now;
   };
 
-  // Animated particles component
   const Particles = () => (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
       {[...Array(50)].map((_, i) => (
@@ -491,15 +506,13 @@ export default function PremiumExpoSurvey() {
             <img src="/fast.png" alt="Fast Logo" className="w-48 h-auto" />
           </div>
 
-          {/* Header */}
-
           {/* Survey Card */}
           <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-8 md:p-12 border border-white/20 shadow-2xl space-y-8 text-white w-full">
 
-            {/* 1. Sector */}
+            {/* 1. Sector - Now Multiple Choice */}
             <div>
               <h3 className="text-xl font-semibold mb-3">
-                1. Which sector best describes your business? <span className="text-red-400">*</span>
+                1. Which sector best describes your business? (Select all that apply) <span className="text-red-400">*</span>
               </h3>
               {[
                 "Mining",
@@ -514,11 +527,10 @@ export default function PremiumExpoSurvey() {
               ].map((opt) => (
                 <label key={opt} className="block mb-2 cursor-pointer hover:text-white/80">
                   <input
-                    type="radio"
-                    name="sector"
+                    type="checkbox"
                     value={opt}
-                    checked={surveyData.sector === opt}
-                    onChange={(e) => handleChange("sector", e.target.value)}
+                    checked={surveyData.sector?.includes(opt)}
+                    onChange={(e) => handleMultipleChoice("sector", opt, e.target.checked)}
                     className="mr-3 w-4 h-4"
                   />
                   {opt}
@@ -526,10 +538,10 @@ export default function PremiumExpoSurvey() {
               ))}
             </div>
 
-            {/* 2. Power Solution */}
+            {/* 2. Power Solution - Now Multiple Choice */}
             <div>
               <h3 className="text-xl font-semibold mb-3">
-                2. What type of power solution do you usually require? <span className="text-red-400">*</span>
+                2. What type of power solution do you usually require? (Select all that apply) <span className="text-red-400">*</span>
               </h3>
               {[
                 "Temporary / Rental Power",
@@ -540,11 +552,10 @@ export default function PremiumExpoSurvey() {
               ].map((opt) => (
                 <label key={opt} className="block mb-2 cursor-pointer hover:text-white/80">
                   <input
-                    type="radio"
-                    name="solution"
+                    type="checkbox"
                     value={opt}
-                    checked={surveyData.solution === opt}
-                    onChange={(e) => handleChange("solution", e.target.value)}
+                    checked={surveyData.solution?.includes(opt)}
+                    onChange={(e) => handleMultipleChoice("solution", opt, e.target.checked)}
                     className="mr-3 w-4 h-4"
                   />
                   {opt}
@@ -552,12 +563,12 @@ export default function PremiumExpoSurvey() {
               ))}
             </div>
 
-            {/* 3. Capacity */}
+            {/* 3. Capacity - Remains Single Choice */}
             <div>
               <h3 className="text-xl font-semibold mb-3">
                 3. What capacity range do you typically need? <span className="text-red-400">*</span>
               </h3>
-              {["Below 1 MW", "1 – 10 MW", "10 – 50 MW", "Above 50 MW"].map(
+              {["Below 1 MW", "1 – 10 MW", "10 – 50 MW", "Above 50 MW","Other"].map(
                 (opt) => (
                   <label key={opt} className="block mb-2 cursor-pointer hover:text-white/80">
                     <input
