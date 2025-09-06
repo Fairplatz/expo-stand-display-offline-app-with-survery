@@ -492,16 +492,6 @@ export default function PremiumExpoSurvey() {
           </div>
 
           {/* Header */}
-          <div className="text-center mb-6">
-            <h2 className="text-5xl font-bold text-white mb-4">
-              Altaaqa Exhibition Survey
-            </h2>
-            <p className="text-xl text-white/80">
-              Thank you for visiting Altaaqa! Your feedback helps us provide
-              solutions that save costs, improve reliability, and support your
-              growth.
-            </p>
-          </div>
 
           {/* Survey Card */}
           <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-8 md:p-12 border border-white/20 shadow-2xl space-y-8 text-white w-full">
