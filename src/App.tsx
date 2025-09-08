@@ -620,7 +620,6 @@ export default function PremiumExpoSurvey() {
             <div>
               <h3 className="text-xl font-semibold mb-3">
                 5. When choosing a power partner, how important are the following?
-                (Not Important,Very Important)
               </h3>
               {[
                 "Fast deployment & availability",
