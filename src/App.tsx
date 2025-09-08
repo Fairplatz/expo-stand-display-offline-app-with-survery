@@ -1,4 +1,3 @@
-
 import { useState, useRef, useEffect } from "react";
 import initSqlJs from "sql.js";
 
@@ -363,7 +362,7 @@ export default function PremiumExpoSurvey() {
       {[...Array(50)].map((_, i) => (
         <div
           key={i}
-          className="absolute w-1 h-1 bg-white/20 rounded-full animate-pulse"
+          className="absolute w-1 h-1 bg-[#01907C]/20 rounded-full animate-pulse"
           style={{
             left: `${Math.random() * 100}%`,
             top: `${Math.random() * 100}%`,
@@ -378,13 +377,13 @@ export default function PremiumExpoSurvey() {
   // START SCREEN
   if (currentScreen === "start") {
     return (
-      <div className="min-h-screen relative overflow-hidden bg-[#d6d9dc]">
+      <div className="min-h-screen relative overflow-hidden bg-[#FFFEFE]">
         {/* Animated background */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#3a5c78]/20 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#01907C]/20 via-transparent to-transparent" />
         {showParticles && <Particles />}
         
         {/* Glass morphism overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#d6d9dc]/50 via-transparent to-[#d6d9dc]/30 backdrop-blur-[2px]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#FFFEFE]/50 via-transparent to-[#FFFEFE]/30 backdrop-blur-[2px]" />
         
         <div className="relative z-10 min-h-screen flex items-center justify-center px-6">
           <div className="text-center flex flex-col items-center justify-center space-y-8 max-w-4xl">
@@ -393,22 +392,17 @@ export default function PremiumExpoSurvey() {
               className="flex flex-col md:flex-row items-center justify-center gap-6 cursor-pointer"
               onClick={handleAdminClick}
             >
-          
-           
               <img src="/altaaqa.png" alt="Altaaqa Logo" className="w-48 h-auto" />
-              
+            </div>
             
-
-          </div>
-            
-            <p className="text-lg text-black max-w-2xl mx-auto">
+            <p className="text-lg text-[#01907C] max-w-2xl mx-auto">
               Experience the future of technology through our immersive journey
             </p>
             
             <div className="pt-8">
               <button
                 onClick={handleStartClick}
-                className="group relative px-12 py-6 bg-[#d6d9dc] rounded-2xl text-2xl font-bold text-[#0cf1cf]shadow-2xl border-2 border-white/30 hover:border-white/50 transform transition-all duration-500 overflow-hidden"
+                className="group relative px-12 py-6 bg-[#FFFEFE] rounded-2xl text-2xl font-bold text-[#01907C] shadow-2xl border-2 border-[#01907C]/30 hover:border-[#01907C]/50 transform transition-all duration-500 overflow-hidden"
               >
                 <span className="relative z-10 flex items-center gap-3">
                   Begin Experience
@@ -416,30 +410,30 @@ export default function PremiumExpoSurvey() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
                 </span>
-                <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 bg-[#01907C]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </button>
             </div>
 
             {/* Admin Panel (if enabled) */}
             {isAdminMode && (
-              <div className="mt-8 p-6 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20">
-                <h3 className="text-xl font-bold text-[#0cf1cf]mb-4">Admin Export</h3>
+              <div className="mt-8 p-6 bg-[#01907C]/10 backdrop-blur-md rounded-2xl border border-[#01907C]/20">
+                <h3 className="text-xl font-bold text-[#01907C] mb-4">Admin Export</h3>
                 <div className="space-y-4">
                   <input
                     type="password"
                     placeholder="Enter admin key"
                     value={adminKey}
                     onChange={(e) => setAdminKey(e.target.value)}
-                    className="w-full p-3 rounded-lg bg-white/20 text-[#0cf1cf]placeholder-black focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    className="w-full p-3 rounded-lg bg-[#FFFEFE] text-[#01907C] placeholder-[#01907C]/70 border border-[#01907C]/30 focus:outline-none focus:ring-2 focus:ring-[#01907C]"
                   />
                   <button
                     onClick={exportToSQLite}
-                    className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-[#0cf1cf]rounded-lg transition-colors"
+                    className="w-full py-3 bg-[#01907C] hover:bg-[#017a69] text-[#FFFEFE] rounded-lg transition-colors border border-[#01907C]"
                   >
                     Export to SQLite
                   </button>
                   {exportStatus && (
-                    <p className="text-[#0cf1cf]  text-sm">{exportStatus}</p>
+                    <p className="text-[#01907C] text-sm">{exportStatus}</p>
                   )}
                 </div>
               </div>
@@ -453,17 +447,17 @@ export default function PremiumExpoSurvey() {
   // VIDEO SCREEN
   if (currentScreen === "video") {
     return (
-      <div className="min-h-screen w-full bg-[#ffffff] relative overflow-hidden flex items-center justify-center">
+      <div className="min-h-screen w-full bg-[#FFFEFE] relative overflow-hidden flex items-center justify-center">
         {videoError ? (
-          <div className="text-center text-[#0cf1cf]p-8">
+          <div className="text-center text-[#01907C] p-8">
             <div className="mb-6">
-              <svg className="w-16 h-16 mx-auto text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-16 h-16 mx-auto text-[#01907C]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
-            <h3 className="text-2xl font-bold mb-4">Video Unavailable</h3>
-            <p className="text-lg text-[#0cf1cf]  mb-6">We're having trouble loading the video. Proceeding to survey...</p>
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto"></div>
+            <h3 className="text-2xl font-bold mb-4 text-[#01907C]">Video Unavailable</h3>
+            <p className="text-lg text-[#01907C] mb-6">We're having trouble loading the video. Proceeding to survey...</p>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#01907C] mx-auto"></div>
           </div>
         ) : (
           <>
@@ -483,7 +477,7 @@ export default function PremiumExpoSurvey() {
             {/* Elegant skip button */}
             <button
               onClick={handleVideoEnd}
-              className="absolute top-8 right-8 px-6 py-3 bg-[#d6d9dc]/80 backdrop-blur-md border border-white/30 text-[#0cf1cf]rounded-xl hover:bg-[#d6d9dc] transition-all duration-300 flex items-center gap-2"
+              className="absolute top-8 right-8 px-6 py-3 bg-[#FFFEFE]/80 backdrop-blur-md border border-[#01907C]/30 text-[#01907C] rounded-xl hover:bg-[#FFFEFE] transition-all duration-300 flex items-center gap-2"
             >
               <span>Skip</span>
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -499,24 +493,20 @@ export default function PremiumExpoSurvey() {
   // SURVEY SCREEN
   if (currentScreen === "survey") {
     return (
-      <div className="min-h-screen bg-[#ffffff] text-[#00b398]  py-12 px-6">
+      <div className="min-h-screen bg-[#FFFEFE] text-[#01907C] py-12 px-6">
         <div className="max-w-4xl mx-auto relative z-10 flex flex-col items-center justify-center space-y-8">
           {/* Logos with divider */}
-         <div className="flex flex-col items-center space-y-4">
-           
-              <img src="/altaaqa.png" alt="Altaaqa Logo" className="w-48 h-auto" />
-              
-            
-
+          <div className="flex flex-col items-center space-y-4">
+            <img src="/altaaqa.png" alt="Altaaqa Logo" className="w-48 h-auto" />
           </div>
 
           {/* Survey Card */}
-          <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-8 md:p-12 border border-white/20 shadow-2xl space-y-8  w-full">
+          <div className="bg-[#FFFEFE] rounded-3xl p-8 md:p-12 border border-[#01907C]/20 shadow-2xl space-y-8 w-full">
 
             {/* 1. Sector - Now Multiple Choice */}
             <div>
               <h3 className="text-xl font-semibold mb-3">
-                1. Which sector best describes your business? (Select all that apply) <span className="text-red-400">*</span>
+                1. Which sector best describes your business? (Select all that apply) <span className="text-red-500">*</span>
               </h3>
               {[
                 "Mining",
@@ -529,13 +519,13 @@ export default function PremiumExpoSurvey() {
                 "Healthcare",
                 "Other",
               ].map((opt) => (
-                <label key={opt} className="block mb-2 cursor-pointer hover:text-[#0cf1cf] ">
+                <label key={opt} className="block mb-2 cursor-pointer hover:text-[#017a69]">
                   <input
                     type="checkbox"
                     value={opt}
                     checked={surveyData.sector?.includes(opt)}
                     onChange={(e) => handleMultipleChoice("sector", opt, e.target.checked)}
-                    className="mr-3 w-4 h-4"
+                    className="mr-3 w-4 h-4 border-[#01907C] text-[#01907C] focus:ring-[#01907C]"
                   />
                   {opt}
                 </label>
@@ -545,7 +535,7 @@ export default function PremiumExpoSurvey() {
             {/* 2. Power Solution - Now Multiple Choice */}
             <div>
               <h3 className="text-xl font-semibold mb-3">
-                2. What type of power solution do you usually require? (Select all that apply) <span className="text-red-400">*</span>
+                2. What type of power solution do you usually require? (Select all that apply) <span className="text-red-500">*</span>
               </h3>
               {[
                 "Temporary / Rental Power",
@@ -554,13 +544,13 @@ export default function PremiumExpoSurvey() {
                 "Emergency Backup Power",
                 "Other",
               ].map((opt) => (
-                <label key={opt} className="block mb-2 cursor-pointer hover:text-[#0cf1cf] ">
+                <label key={opt} className="block mb-2 cursor-pointer hover:text-[#017a69]">
                   <input
                     type="checkbox"
                     value={opt}
                     checked={surveyData.solution?.includes(opt)}
                     onChange={(e) => handleMultipleChoice("solution", opt, e.target.checked)}
-                    className="mr-3 w-4 h-4"
+                    className="mr-3 w-4 h-4 border-[#01907C] text-[#01907C] focus:ring-[#01907C]"
                   />
                   {opt}
                 </label>
@@ -570,18 +560,18 @@ export default function PremiumExpoSurvey() {
             {/* 3. Capacity - Remains Single Choice */}
             <div>
               <h3 className="text-xl font-semibold mb-3">
-                3. What capacity range do you typically need? <span className="text-red-400">*</span>
+                3. What capacity range do you typically need? <span className="text-red-500">*</span>
               </h3>
               {["Below 1 MW", "1 – 10 MW", "10 – 50 MW", "Above 50 MW","Other"].map(
                 (opt) => (
-                  <label key={opt} className="block mb-2 cursor-pointer hover:text-[#0cf1cf] ">
+                  <label key={opt} className="block mb-2 cursor-pointer hover:text-[#017a69]">
                     <input
                       type="radio"
                       name="capacity"
                       value={opt}
                       checked={surveyData.capacity === opt}
                       onChange={(e) => handleChange("capacity", e.target.value)}
-                      className="mr-3 w-4 h-4"
+                      className="mr-3 w-4 h-4 border-[#01907C] text-[#01907C] focus:ring-[#01907C]"
                     />
                     {opt}
                   </label>
@@ -603,7 +593,7 @@ export default function PremiumExpoSurvey() {
                 "Service & Maintenance Quality",
                 "Other",
               ].map((opt) => (
-                <label key={opt} className="block mb-2 cursor-pointer hover:text-[#0cf1cf] ">
+                <label key={opt} className="block mb-2 cursor-pointer hover:text-[#017a69]">
                   <input
                     type="checkbox"
                     value={opt}
@@ -619,7 +609,7 @@ export default function PremiumExpoSurvey() {
                             ),
                       }));
                     }}
-                    className="mr-3 w-4 h-4"
+                    className="mr-3 w-4 h-4 border-[#01907C] text-[#01907C] focus:ring-[#01907C]"
                   />
                   {opt}
                 </label>
@@ -644,14 +634,17 @@ export default function PremiumExpoSurvey() {
                   <select
                     value={surveyData[q] || ""}
                     onChange={(e) => handleChange(q, e.target.value)}
-                    className="w-full p-3 rounded-lg bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    className="w-full p-3 rounded-lg bg-[#FFFEFE] text-[#01907C] border border-[#01907C]/30 focus:outline-none focus:ring-2 focus:ring-[#01907C]"
                   >
                     <option value="">Select Rating</option>
-                    {[1, 2, 3, 4, 5].map((n) => (
-                      <option key={n} value={n}>
-                        {n} - {n === 1 ? 'Not Important' : n === 5 ? 'Very Important' : ''}
+                  
+                      <option value='Very Important'>
+                        Very Important
                       </option>
-                    ))}
+                      <option value='Not Important'>
+                        Not Important
+                      </option>
+                   
                   </select>
                 </div>
               ))}
@@ -660,7 +653,7 @@ export default function PremiumExpoSurvey() {
            {/* 6. Currently seeking */}
 <div>
   <h3 className="text-xl font-semibold mb-3">
-    6. Are you currently seeking a power solution provider? <span className="text-red-400">*</span>
+    6. Are you currently seeking a power solution provider? <span className="text-red-500">*</span>
   </h3>
   {[
     "Yes, urgently",
@@ -668,14 +661,14 @@ export default function PremiumExpoSurvey() {
     "Exploring options for the future",
     "Not at the moment",
   ].map((opt) => (
-    <label key={opt} className="block mb-2 cursor-pointer hover:text-[#0cf1cf] ">
+    <label key={opt} className="block mb-2 cursor-pointer hover:text-[#017a69]">
       <input
         type="radio"
         name="seeking"
         value={opt} 
         checked={surveyData.seeking === opt}
         onChange={(e) => handleChange("seeking", e.target.value)}
-        className="mr-3 w-4 h-4"
+        className="mr-3 w-4 h-4 border-[#01907C] text-[#01907C] focus:ring-[#01907C]"
       />
       {opt}
     </label>
@@ -685,16 +678,16 @@ export default function PremiumExpoSurvey() {
             {/* 7. Follow-up */}
             <div>
               <h3 className="text-xl font-semibold mb-3">
-                7. Would you like Altaaqa to follow up with a tailored solution? <span className="text-red-400">*</span>
+                7. Would you like Altaaqa to follow up with a tailored solution? <span className="text-red-500">*</span>
               </h3>
-              <label className="block mb-3 cursor-pointer hover:text-[#0cf1cf] ">
+              <label className="block mb-3 cursor-pointer hover:text-[#017a69]">
                 <input
                   type="radio"
                   name="followup"
                   value="Yes"
                   checked={surveyData.followup === "Yes"}
                   onChange={(e) => handleChange("followup", e.target.value)}
-                  className="mr-3 w-4 h-4"
+                  className="mr-3 w-4 h-4 border-[#01907C] text-[#01907C] focus:ring-[#01907C]"
                 />
                 Yes (please share your details)
               </label>
@@ -705,7 +698,7 @@ export default function PremiumExpoSurvey() {
                     placeholder="Name *"
                     value={surveyData.name}
                     onChange={(e) => handleChange("name", e.target.value)}
-                    className="w-full p-3 rounded-lg bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    className="w-full p-3 rounded-lg bg-[#FFFEFE] text-[#01907C] border border-[#01907C]/30 focus:outline-none focus:ring-2 focus:ring-[#01907C]"
                     required
                   />
                   <input
@@ -713,7 +706,7 @@ export default function PremiumExpoSurvey() {
                     placeholder="Company *"
                     value={surveyData.company}
                     onChange={(e) => handleChange("company", e.target.value)}
-                    className="w-full p-3 rounded-lg bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    className="w-full p-3 rounded-lg bg-[#FFFEFE] text-[#01907C] border border-[#01907C]/30 focus:outline-none focus:ring-2 focus:ring-[#01907C]"
                     required
                   />
                   <input
@@ -721,19 +714,19 @@ export default function PremiumExpoSurvey() {
                     placeholder="Email / Phone / WhatsApp *"
                     value={surveyData.contact}
                     onChange={(e) => handleChange("contact", e.target.value)}
-                    className="w-full p-3 rounded-lg bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    className="w-full p-3 rounded-lg bg-[#FFFEFE] text-[#01907C] border border-[#01907C]/30 focus:outline-none focus:ring-2 focus:ring-[#01907C]"
                     required
                   />
                 </div>
               )}
-              <label className="block cursor-pointer hover:text-green-500 ">
+              <label className="block cursor-pointer hover:text-[#017a69]">
                 <input
                   type="radio"
                   name="followup"
                   value="No"
                   checked={surveyData.followup === "No"}
                   onChange={(e) => handleChange("followup", e.target.value)}
-                  className="mr-3 w-4 h-4"
+                  className="mr-3 w-4 h-4 border-[#01907C] text-[#01907C] focus:ring-[#01907C]"
                 />
                 No, just exploring
               </label>
@@ -744,11 +737,11 @@ export default function PremiumExpoSurvey() {
               <button
                 onClick={handleSubmit}
                 disabled={isLoading}
-                className="w-full py-5 rounded-xl text-xl font-bold bg-white text-[#0cf1cf]  hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 border-2 border-white"
+                className="w-full py-5 rounded-xl text-xl font-bold bg-[#01907C] text-[#FFFEFE] hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 border-2 border-[#01907C]"
               >
                 {isLoading ? (
                   <>
-                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-[#d6d9dc]"></div>
+                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-[#FFFEFE]"></div>
                     Processing...
                   </>
                 ) : (
@@ -766,26 +759,22 @@ export default function PremiumExpoSurvey() {
   // THANK YOU SCREEN
   if (currentScreen === "thankyou") {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#ffffff] text-[#0cf1cf] relative overflow-hidden">
+      <div className="min-h-screen flex items-center justify-center bg-[#FFFEFE] text-[#01907C] relative overflow-hidden">
         {/* Floating background orbs */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-white/10 rounded-full blur-3xl animate-ping" />
-          <div className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-pulse delay-1000" />
+          <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-[#01907C]/10 rounded-full blur-3xl animate-ping" />
+          <div className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-[#01907C]/10 rounded-full blur-3xl animate-pulse delay-1000" />
         </div>
 
         <div className="relative z-10 text-center space-y-10 max-w-3xl px-6 animate-fadeIn">
           {/* Altaaqa Logo + Header */}
           <div className="flex flex-col items-center space-y-4">
-           
-              <img src="/altaaqa.png" alt="Altaaqa Logo" className="w-48 h-auto" />
-              
-            
-
+            <img src="/altaaqa.png" alt="Altaaqa Logo" className="w-48 h-auto" />
           </div>
 
           {/* Success icon */}
-          <div className="mx-auto w-32 h-32 bg-white backdrop-blur-md rounded-full flex items-center justify-center animate-bounceSlow">
-            <svg className="w-16 h-16 text-[#0cf1cf] " fill="currentColor" viewBox="0 0 20 20">
+          <div className="mx-auto w-32 h-32 bg-[#FFFEFE] backdrop-blur-md rounded-full flex items-center justify-center animate-bounceSlow border border-[#01907C]/20">
+            <svg className="w-16 h-16 text-[#01907C]" fill="currentColor" viewBox="0 0 20 20">
               <path
                 fillRule="evenodd"
                 d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 
@@ -801,12 +790,12 @@ export default function PremiumExpoSurvey() {
           <h1 className="text-5xl md:text-6xl font-extrabold animate-fadeUp">
             Thank You!
           </h1>
-          <p className="text-xl font-light text-[#0cf1cf]  animate-fadeUp delay-150">
+          <p className="text-xl font-light text-[#01907C] animate-fadeUp delay-150">
             Your feedback has been successfully recorded in our database.  
             We truly appreciate your time and support.
           </p>
 
-          <p className="text-white/60 animate-pulse">
+          <p className="text-[#01907C]/60 animate-pulse">
             Returning to welcome screen in <span className="font-bold">{countdown}</span>...
           </p>
         </div>
